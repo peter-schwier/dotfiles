@@ -6,7 +6,7 @@ README.md
 {{ end }}
 
 # Windows
-.chezmoiscripts/windows/assets/** # Only used by the other scripts in .chezmoiscripts/windows/**
 {{ if ne .chezmoi.os "windows" }}
 .chezmoiscripts/windows/**
+.local/wezterm/opengl32.dll
 {{ end }}

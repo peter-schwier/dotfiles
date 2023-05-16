@@ -1,0 +1,9 @@
+local wezterm = require 'wezterm'
+local config = {}
+
+local pwsh = {{ joinPath .chezmoi.homeDir ".dotnet/tools/pwsh" | quote }}
+
+config.font = wezterm.font("JetBrains Mono")
+config.default_prog = { pwsh }
+
+return config
