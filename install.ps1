@@ -23,5 +23,5 @@ if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .local/miniconda3/condabin/
 
 if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .local/bin/chezmoi.exe) -PathType Leaf)) { 
     # Install chezmoi.exe
-    '$params = "-BinDir ~/.local/bin" init --apply peter-schwier', (iwr https://get.chezmoi.io/ps1).Content | powershell -c -
+    $params = '"-BinDir ~/.local/bin" init --apply peter-schwier', (iwr https://get.chezmoi.io/ps1).Content | powershell -c -
 }
