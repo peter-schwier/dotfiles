@@ -12,9 +12,11 @@ if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .local/miniconda3/condabin/
     rm Miniconda3-latest-Windows-x86_64.exe
 
     # Second, Initialize MiniConda3
-    # ~/.local/miniconda3/Scripts/conda.exe init
+    ~/.local/miniconda3/Scripts/conda.exe init
     
-    # (& ~/.local/miniconda3/Scripts/conda.exe "shell.powershell" "hook") | Out-String | ?{$_} | Invoke-Expression
+    # Load the conda environment into the current shell
+    # This is the code copied out of Documents/PowerShell/profile.ps1
+    (& ~/.local/miniconda3/Scripts/conda.exe "shell.powershell" "hook") | Out-String | ?{$_} | Invoke-Expression
 }
 
 ~/.local/miniconda3/Scripts/conda.exe install --yes --override-channels --channel conda-forge git
