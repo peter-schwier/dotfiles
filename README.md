@@ -7,6 +7,11 @@ Managed by Chezmoi
 ### On Windows
 
 ```powershell
+powershell -NoProfile -ExecutionPolicy Unrestricted -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/peter-schwier/dotfiles/main/install.ps1')))"
+
+```
+
+```powershell
 '$params = "-BinDir ~/.local/bin" init --apply peter-schwier', (iwr https://get.chezmoi.io/ps1).Content | powershell -c -
 ```
 
