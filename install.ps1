@@ -22,6 +22,7 @@ if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .local/miniconda3/condabin/
 ~/.local/miniconda3/Scripts/conda.exe install --yes --override-channels --channel conda-forge git
 
 # Set the path so that ~/.dotnet/tools/pwsh.exe will run correctly
+$env:DOTNET_ROOT = "${env:UserProfile}\.dotnet"
 $env:Path = "${env:UserProfile}\.dotnet;" + $env:Path
 $env:Path = "${env:UserProfile}\.dotnet\tools;" + $env:Path
 
