@@ -25,6 +25,9 @@ if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .local/miniconda3/condabin/
     git `
     rclone `
     syncthing `
+    sqlite `
+    fossil `
+    pandoc `
 
 if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .dotnet/dotnet.exe) -PathType Leaf)) { 
     # Install dotnet
