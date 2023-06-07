@@ -50,6 +50,7 @@ if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .local/bin/chezmoi.exe) -Pa
 }
 
 # Apply the config files, also installing wezterm and other zip based deployments
+~/.local/bin/chezmoi.exe init
 ~/.local/bin/chezmoi.exe apply
 
 # Only add the shortcut after chezmoi runs to install wezterm
