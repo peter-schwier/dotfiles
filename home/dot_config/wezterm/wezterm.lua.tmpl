@@ -1,9 +1,17 @@
 local wezterm = require 'wezterm'
 local config = {}
 
+local dotnet_folder = {{ joinPath .chezmoi.homeDir ".dotnet" | quote }}
+local dotnet_tools_folder = {{ joinPath .chezmoi.homeDir ".dotnet" | quote }}
 local pwsh = {{ joinPath .chezmoi.homeDir ".dotnet/tools/pwsh" | quote }}
 
 config.font = wezterm.font("JetBrains Mono")
+config.set_environment_variables = {
+    DOTNET_ROOT = dotnet_folder,
+    PATH = dotnet_tools_folder .. ';'
+        .. dotnet_folder .. ';'
+        .. os.getenv('PATH')
+}
 config.default_prog = { pwsh }
 
 return config

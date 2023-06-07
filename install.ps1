@@ -62,7 +62,7 @@ if (-not(Test-Path -Path $shortcutPath -PathType Leaf)) {
     $s = $ws.CreateShortcut($shortcutPath)
     $s.TargetPath = $shortcutTarget
     #$s.Arguments = (Join-Path (Resolve-Path ~) .dotnet/tools/pwsh.exe)
-    $s.WorkingDirectory = (Resolve-Path ~)
+    $s.WorkingDirectory = (Resolve-Path ~).Path
     $s.Description = "WezTerm Terminal Multiplexer"
     $s.IconLocation = $shortcutTarget
     $s.WindowStyle = 3 # 3=Maximized, 7=Minimized, 4=Normal
