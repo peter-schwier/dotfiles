@@ -19,14 +19,52 @@ if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .local/miniconda3/condabin/
     (& ~/.local/miniconda3/Scripts/conda.exe "shell.powershell" "hook") | Out-String | ?{$_} | Invoke-Expression
 }
 
-~/.local/miniconda3/Scripts/conda.exe install --yes --override-channels --channel conda-forge git
+# Install condaforge based applications
+~/.local/miniconda3/Scripts/conda.exe install `
+    --yes --override-channels --channel conda-forge `
+    git `
+    rclone `
+    syncthing `
+
+if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .dotnet/dotnet.exe) -PathType Leaf)) { 
+    # Install dotnet
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; &([scriptblock]::Create((Invoke-WebRequest -UseBasicParsing 'https://dot.net/v1/dotnet-install.ps1'))) -InstallDir '~/.dotnet' -Channel STS -Version latest -Verbose
+}
+
+if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .dotnet/tools/pwsh.exe) -PathType Leaf)) { 
+    # Install PowerShell Core
+    ~/.dotnet/dotnet tool install --global PowerShell
+}
 
 # Set the path so that ~/.dotnet/tools/pwsh.exe will run correctly
 $env:DOTNET_ROOT = "${env:UserProfile}\.dotnet"
 $env:Path = "${env:UserProfile}\.dotnet;" + $env:Path
 $env:Path = "${env:UserProfile}\.dotnet\tools;" + $env:Path
 
+~/.dotnet/tools/pwsh.exe -NoProfile -ExecutionPolicy Unrestricted -Command "Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser"
+
+
 if (-not(Test-Path -Path (Join-Path (Resolve-Path ~) .local/bin/chezmoi.exe) -PathType Leaf)) { 
     # Install chezmoi.exe
-    '$params = "-BinDir ~/.local/bin init --apply peter-schwier"', (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
+    '$params = "-BinDir ~/.local/bin init peter-schwier"', (irm -useb https://get.chezmoi.io/ps1) | powershell -c -
+}
+
+# Apply the config files, also installing wezterm and other zip based deployments
+~/.local/bin/chezmoi.exe apply
+
+# Only add the shortcut after chezmoi runs to install wezterm
+
+$shortcutPath = Join-Path (Resolve-Path ~) Desktop/WezTerm.lnk
+$shortcutTarget = Join-Path (Resolve-Path ~) .local/wezterm/wezterm-gui.exe
+
+if (-not(Test-Path -Path $shortcutPath -PathType Leaf)) { 
+    $ws = New-Object -ComObject WScript.Shell
+    $s = $ws.CreateShortcut($shortcutPath)
+    $s.TargetPath = $shortcutTarget
+    #$s.Arguments = (Join-Path (Resolve-Path ~) .dotnet/tools/pwsh.exe)
+    $s.WorkingDirectory = (Resolve-Path ~)
+    $s.Description = "WezTerm Terminal Multiplexer"
+    $s.IconLocation = $shortcutTarget
+    $s.WindowStyle = 3 # 3=Maximized, 7=Minimized, 4=Normal
+    $s.Save()
 }

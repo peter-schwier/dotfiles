@@ -1,12 +1,15 @@
 README.md
 
-# Linux
 {{ if ne .chezmoi.os "linux" }}
+# Linux
 .chezmoiscripts/linux/**
 {{ end }}
 
-# Windows
 {{ if ne .chezmoi.os "windows" }}
+# Windows
 .chezmoiscripts/windows/**
+{{ if not .remote_machine }}
+# If this is a local machine, then don't provide the OpenGL mock file.
 .local/wezterm/opengl32.dll
+{{ end }}
 {{ end }}

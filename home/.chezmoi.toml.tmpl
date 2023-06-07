@@ -3,8 +3,10 @@
 # Example for the future: https://github.com/twpayne/dotfiles/blob/master/home/.chezmoi.toml.tmpl
 
 {{- $email := promptStringOnce . "email" "Email address" }}
+{{- $remote_machine := promptBoolOnce . "remote_machine" "Is this machine accessed remotely via SSH/RDP/VirtualBox VM?" }}
 
 [data]
     email = {{ $email | quote }}
+    remote_machine = {{ $remote_machine }}
 [interpreters.ps1]
     command = {{ joinPath .chezmoi.homeDir ".dotnet/tools/pwsh" | quote }}
