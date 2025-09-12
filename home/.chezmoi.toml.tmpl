@@ -1,4 +1,8 @@
 # .chezmoi.toml
+encryption = "age"
+[age]
+    identity = "~/.secrets/chezmoi_age.txt"
+    recipients = ["age103fjw05y6vp94ugpxcphkseuf4z4avcyn8hk5p8yuzlevglwja8s038pa2"]
 {{- $email := promptStringOnce . "email" "Email address" }}
 [data]
     email = {{ $email | quote }}
