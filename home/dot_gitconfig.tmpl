@@ -1,6 +1,6 @@
 [user]
 	email = {{ .email }}
 	name = Peter Schwier
-[credential "https{{ .chezmoi.pathListSeparator }}{{ .chezmoi.pathSeparator }}{{ .chezmoi.pathSeparator }}github.com{{ .chezmoi.pathSeparator }}peter-schwier{{ .chezmoi.pathSeparator }}dotfiles.{{ .chezmoi.config.git.command }}"]
+[credential "https://github.com/peter-schwier/dotfiles.git"]
 	username = "peter-schwier"
-	helper = "!f() { test \"$1\" = get && echo \"password=$(cat $HOME{{ .chezmoi.pathSeparator }}.secrets{{ .chezmoi.pathSeparator }}chezmoi_github.txt)\"; }; f"
+	helper = "!f() { test \"$1\" = get && echo \"password=$(cat $HOME/.secrets/chezmoi_github.txt)\"; }; f"
