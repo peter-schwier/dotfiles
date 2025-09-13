@@ -1,0 +1,11 @@
+["opt/rclone"]
+	type = "archive"
+	url = "https://downloads.rclone.org/{{ .versions.rclone }}/rclone-{{ .versions.rclone }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.zip"
+	extract = true
+	stripComponents = 1
+["opt/syncthing"]
+	type = "archive"
+	url = "https://github.com/syncthing/syncthing/releases/download/{{ .versions.syncthing }}/syncthing-{{ .chezmoi.os}}-{{ .chezmoi.arch }}-{{ .versions.syncthing }}.tar.gz"
+	extract = true
+	stripComponents = 1
+
