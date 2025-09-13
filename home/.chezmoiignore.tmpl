@@ -1,11 +1,6 @@
-README.md
-
-{{ if ne .chezmoi.os "linux" }}
-# Linux
-.chezmoiscripts/linux/**
+{{ if eq .chezmoi.osRelease.id "bazzite" }}
+.secrets/chezmoi_github.txt
+{{ else }}
+*
 {{ end }}
 
-{{ if ne .chezmoi.os "windows" }}
-# Windows
-.chezmoiscripts/windows/**
-{{ end }}

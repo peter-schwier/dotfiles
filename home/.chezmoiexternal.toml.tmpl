@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.osRelease.id "bazzite" }}
 ["opt/rclone"]
 	type = "archive"
 	url = "https://downloads.rclone.org/{{ .versions.rclone }}/rclone-{{ .versions.rclone }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.zip"
@@ -8,4 +9,10 @@
 	url = "https://github.com/syncthing/syncthing/releases/download/{{ .versions.syncthing }}/syncthing-{{ .chezmoi.os}}-{{ .chezmoi.arch }}-{{ .versions.syncthing }}.tar.gz"
 	extract = true
 	stripComponents = 1
+["opt/talon"]
+	type = "archive"
+	url = "https://talonvoice.com/dl/latest/talon-{{ .chezmoi.os }}.tar.xz"
+	extract = true
+	stripComponents = 1
+{{ end }}
 
