@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.osRelease.id "bazzite" }}
+{{ if eq .chezmoi.os "linux" }}
 ["opt/rclone"]
 	type = "archive"
 	url = "https://downloads.rclone.org/{{ .versions.rclone }}/rclone-{{ .versions.rclone }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.zip"
