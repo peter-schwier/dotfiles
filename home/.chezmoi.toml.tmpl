@@ -1,15 +1,20 @@
 # .chezmoi.toml
+{{- $email := promptStringOnce . "email" "Email address" }}
 encryption = "age"
 [age]
-    identity = "~/.secrets/chezmoi_age.txt"
+    identity = {{ joinPath .chezmoi.homeDir ".config/chezmoi/age.key" | quote }}
     recipients = [
 		"age103fjw05y6vp94ugpxcphkseuf4z4avcyn8hk5p8yuzlevglwja8s038pa2",
 		"age16kar0688jpv39hmw6z3mvdrfvfs5tk8uw7zepqts9gz6ump8l5ysye2d9x",
 	]
-{{- $email := promptStringOnce . "email" "Email address" }}
 [data]
     email = {{ $email | quote }}
 [data.versions]
 	rclone = "v1.71.0"
 	syncthing = "v2.0.7"
-
+[env]
+    GIT_ASKPASS = '{{ .chezmoi.executable }} decrypt {{ joinPath .chezmoi.sourceDir "dot_secrets/encrypted_github-dotfiles.key.age" }}'
+{{ if eq .chezmoi.os "windows" }}
+[git]
+    command = {{ joinPath .chezmoi.homeDir ".opt/git/cmd/git.exe" | quote }}
+{{ end }}
