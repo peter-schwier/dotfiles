@@ -1,9 +1,5 @@
-{{ if eq .chezmoi.os "linux" }}
 [user]
-	email = {{ .email }}
+	email = {{ .email | quote }}
 	name = Peter Schwier
 [credential "https://github.com/peter-schwier/dotfiles.git"]
 	username = "peter-schwier"
-	helper = "!f() { test \"$1\" = get && echo \"password=$(chezmoi decrypt {{ joinPath .chezmoi.sourceDir "dot_secrets/encrypted_chezmoi_github.txt.age"}})\"; }; f"
-{{ else }}
-{{ end }}
