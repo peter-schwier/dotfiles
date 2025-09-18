@@ -12,9 +12,9 @@ encryption = "age"
 [data.versions]
 	rclone = "v1.71.0"
 	syncthing = "v2.0.7"
+{{ if eq .chezmoi.os "windows" }}
 [env]
     GIT_ASKPASS = '{{ .chezmoi.executable }} decrypt {{ joinPath .chezmoi.sourceDir "dot_secrets/encrypted_github-dotfiles.key.age" }}'
-{{ if eq .chezmoi.os "windows" }}
 [git]
     command = {{ joinPath .chezmoi.homeDir ".opt/git/cmd/git.exe" | quote }}
 {{ end }}
