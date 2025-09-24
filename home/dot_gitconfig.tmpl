@@ -3,6 +3,10 @@
 	name = Peter Schwier
 [credential "https://github.com/peter-schwier/dotfiles.git"]
 	username = "peter-schwier"
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 	helper = "!f() { test \"$1\" = get && echo \"password=$(chezmoi decrypt {{ joinPath .chezmoi.sourceDir "dot_secrets/encrypted_github-dotfiles.key.age"}})\"; }; f"
-{{ end }}
+{{ end -}}
+{{- if eq .chezmoi.os "windows" }}
+[core]
+	editor = \"C:\\Users\\peter.schwier\\AppData\\Local\\Programs\\Microsoft VS Code\\bin\\code\" --wait
+{{ end -}}
