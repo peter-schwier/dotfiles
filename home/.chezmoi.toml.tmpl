@@ -11,7 +11,7 @@ encryption = "age"
     email = {{ $email | quote }}
 [data.versions]
 	rclone = "v1.71.0"
-	syncthing = "v2.0.7"
+	syncthing = "v2.0.10"
 {{ if eq .chezmoi.os "windows-1" }}
 [env]
     GIT_ASKPASS = '{{ .chezmoi.executable }} decrypt {{ joinPath .chezmoi.sourceDir "dot_secrets/encrypted_github-dotfiles.key.age" }}'
