@@ -16,16 +16,10 @@
 	type = "archive"
 {{ if eq .chezmoi.os "windows" }}
 	url = "https://talonvoice.com/dl/latest/talon-windows.zip"
+	stripComponents = 0
 {{ else if eq .chezmoi.os "linux" }}
 	url = "https://talonvoice.com/dl/latest/talon-linux.tar.xz"
-{{ end }}
-	extract = true
 	stripComponents = 1
-
-{{ if eq .chezmoi.os "windows" }}
-[".opt/git"]
-	type = "archive"
-	url = "https://github.com/git-for-windows/git/releases/download/v2.51.0.windows.1/MinGit-2.51.0-busybox-64-bit.zip"
-	extract = true
 {{ end }}
+	extract = true
 

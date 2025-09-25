@@ -6,6 +6,38 @@ function Set-Environment([String] $variable, [String] $value) {
     Invoke-Expression "`$env:${variable} = `"$value`""
 }
 
+function Update-EnvPath(
+    [String]$PrependPath,
+    [String]$AppendPath,
+    [String]$RemovePath
+) {
+    $regexPaths = @()
+    if ($PSBoundParameters.Keys -contains 'PrependPath'){
+        $regexPaths += [regex]::Escape($PrependPath)
+    }
+    if ($PSBoundParameters.Keys -contains 'AppendPath'){
+        $regexPaths += [regex]::Escape($AppendPath)
+    }
+    if ($PSBoundParameters.Keys -contains 'RemovePath'){
+        $regexPaths += [regex]::Escape($RemovePath)
+    }
+    $arrPath = $env:Path -split ';'
+    foreach ($path in $regexPaths) {
+        $arrPath = $arrPath | Where-Object {$_ -notMatch "^$path\\?"}
+    }
+    if ($PSBoundParameters.Keys -contains 'PrependPath'){
+        if (Test-Path $PrependPath) {
+            $arrPath = @() + (Resolve-Path $PrependPath) + $arrPath
+        }
+    }
+    if ($PSBoundParameters.Keys -contains 'AppendPath'){
+        if (Test-Path $AppendPath) {
+            $arrPath = @() + $arrPath + (Resolve-Path $AppendPath)
+        }
+    }
+    $env:Path = $arrPath -join ';'
+}
+
 # Basic commands
 function which($name) { Get-Command $name -ErrorAction SilentlyContinue | Select-Object Definition }
 function touch($file) { "" | Out-File $file -Encoding ASCII }
@@ -42,3 +74,6 @@ ${function:dl} = { Set-Location ~\Downloads }
 
 Set-Environment "EDITOR" "code --wait"
 Set-Environment "GIT_EDITOR" $Env:EDITOR
+
+Update-EnvPath -PrependPath ~/.local/bin
+Update-EnvPath -PrependPath ~/.opt/rclone
