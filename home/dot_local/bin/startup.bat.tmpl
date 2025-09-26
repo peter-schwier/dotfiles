@@ -1,7 +1,8 @@
 PUSHD "%~dp0"
 
-wt.exe --window Applications --title RClone --startingDirectory {{ joinPath .chezmoi.homeDir ".opt/rclone" | quote }} {{ joinPath .chezmoi.homeDir ".opt/rclone/rclone.exe" | quote }} serve webdav {{ joinPath .chezmoi.homeDir "Syncthing" | quote }}
+{{ joinPath .chezmoi.homeDir ".local/bin/pueued.exe" | quote }} -d
 
-wt.exe --window Applications --title Syncthing --startingDirectory {{ joinPath .chezmoi.homeDir ".opt/syncthing" | quote }} {{ joinPath .chezmoi.homeDir ".opt/syncthing/syncthing.exe" | quote }}
+{{ joinPath .chezmoi.homeDir ".local/bin/pueue.exe" | quote }} add --immediate rclone.exe serve webdav {{ joinPath .chezmoi.homeDir "Syncthing" | quote }}
+{{ joinPath .chezmoi.homeDir ".local/bin/pueue.exe" | quote }} add --immediate syncthing.exe
 
 START "" {{ joinPath .chezmoi.homeDir ".opt/keepassxc/KeePassXC.exe" | quote }} {{ joinPath .chezmoi.homeDir "Syncthing/Data.KeePass/Peter's Passwords.kdbx" | quote }}
