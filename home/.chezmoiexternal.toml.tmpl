@@ -1,37 +1,96 @@
-[".opt/rclone"]
-	type = "archive"
-	url = "https://downloads.rclone.org/{{ .versions.rclone }}/rclone-{{ .versions.rclone }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.zip"
-	extract = true
-	stripComponents = 1
-[".opt/syncthing"]
-	type = "archive"
-{{ if eq .chezmoi.os "windows" }}
-	url = "https://github.com/syncthing/syncthing/releases/download/{{ .versions.syncthing }}/syncthing-windows-{{ .chezmoi.arch }}-{{ .versions.syncthing }}.zip"
-{{ else }}
-	url = "https://github.com/syncthing/syncthing/releases/download/{{ .versions.syncthing }}/syncthing-linux-{{ .chezmoi.arch }}-{{ .versions.syncthing }}.tar.gz"
-{{ end }}
-	extract = true
-	stripComponents = 1
-[".opt/talon"]
-	type = "archive"
-{{ if eq .chezmoi.os "windows" }}
-	url = "https://talonvoice.com/dl/latest/talon-windows.zip"
-	stripComponents = 0
-{{ else if eq .chezmoi.os "linux" }}
-	url = "https://talonvoice.com/dl/latest/talon-linux.tar.xz"
-	stripComponents = 1
-{{ end }}
-	extract = true
-{{ if eq .chezmoi.os "windows" }}
+# Core - Git
+# TODO: Find search criteria for Android's termux
+# TODO: Find search criteria for iPhone/iPad
+{{ if eq .chezmoi.os "linux" -}}
+# TODO: Find install method for linux
+{{- else if eq .chezmoi.os "windows" -}}
+# Install happens in `.chezmoiscripts\windows\run_once_winget.ps1` via winget.
+{{- end }}
+
+# Core - KeePass
+# TODO: Find search criteria for Android's termux
+# TODO: Find search criteria for iPhone/iPad
+{{ if eq .chezmoi.os "linux" -}}
+# TODO: Find install method for linux
+{{- else if eq .chezmoi.os "windows" -}}
+# WinGet version requires admin rights. Instead, download zip file.
 [".opt/keepassxc"]
 	type = "archive"
 	url = "https://github.com/keepassxreboot/keepassxc/releases/download/2.7.10/KeePassXC-2.7.10-Win64.zip"
 	extract = true	
 	stripComponents = 1
+{{- end }}
+
+# Core - Syncthing
+# TODO: Find search criteria for Android's termux
+# TODO: Find search criteria for iPhone/iPad
+{{ if eq .chezmoi.os "linux" -}}
+[".opt/syncthing"]
+	type = "archive"
+	url = "https://github.com/syncthing/syncthing/releases/download/{{ .versions.syncthing }}/syncthing-linux-{{ .chezmoi.arch }}-{{ .versions.syncthing }}.tar.gz"
+	extract = true
+	stripComponents = 1
+{{- else if eq .chezmoi.os "windows" -}}
+# Install happens in `.chezmoiscripts\windows\run_once_winget.ps1` via winget.
+{{- end }}
+
+# Core - TiddlyWiki
+# TODO: Find search criteria for Android's termux
+# TODO: Find search criteria for iPhone/iPad
+{{ if eq .chezmoi.os "linux" -}}
+[".opt/rclone"]
+	type = "archive"
+	url = "https://downloads.rclone.org/{{ .versions.rclone }}/rclone-{{ .versions.rclone }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}.zip"
+	extract = true
+	stripComponents = 1
+{{- else if eq .chezmoi.os "windows" -}}
+# Install happens in `.chezmoiscripts\windows\run_once_winget.ps1` via winget.
+{{- end }}
+
+# Main - Firefox
+{{ if eq .chezmoi.os "linux" -}}
+# TODO: Find install method for linux
+{{- else if eq .chezmoi.os "windows" -}}
+# Install happens in `.chezmoiscripts\windows\run_once_winget.ps1` via winget.
+{{- end }}
+
+# Main - Google Chrome
+{{ if eq .chezmoi.os "linux" -}}
+# TODO: Find install method for linux
+{{- else if eq .chezmoi.os "windows" -}}
+# Install happens in `.chezmoiscripts\windows\run_once_winget.ps1` via winget.
+{{- end }}
+
+# Main - PowerShell
+{{ if eq .chezmoi.os "linux" -}}
+# TODO: Find install method for linux
+{{- else if eq .chezmoi.os "windows" -}}
+# Install happens in `.chezmoiscripts\windows\run_once_winget.ps1` via winget.
+{{- end }}
+
+# Main - Talon Voice
+{{ if eq .chezmoi.os "linux" -}}
+[".opt/talon"]
+	type = "archive"
+	url = "https://talonvoice.com/dl/latest/talon-linux.tar.xz"
+	stripComponents = 1
+	extract = true
+{{- else if eq .chezmoi.os "windows" -}}
+[".opt/talon"]
+	type = "archive"
+	url = "https://talonvoice.com/dl/latest/talon-windows.zip"
+	stripComponents = 0
+	extract = true
+{{- end }}
+
+# Extra - Pueue
+{{ if eq .chezmoi.os "linux" -}}
+# TODO: Find install method for linux
+{{- else if eq .chezmoi.os "windows" -}}
 [".local/bin/pueue.exe"]
 	type = "file"
 	url = "https://github.com/Nukesor/pueue/releases/download/v4.0.1/pueue-x86_64-pc-windows-msvc.exe"
 [".local/bin/pueued.exe"]
 	type = "file"
 	url = "https://github.com/Nukesor/pueue/releases/download/v4.0.1/pueued-x86_64-pc-windows-msvc.exe"
-{{ end }}
+{{- end }}
