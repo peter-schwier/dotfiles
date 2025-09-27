@@ -81,6 +81,10 @@
 	url = "https://talonvoice.com/dl/latest/talon-windows.zip"
 	stripComponents = 0
 	extract = true
+{{ $AppData := substr (len .chezmoi.homeDir | int64 | add1 | int) 999 (env "AppData") }}
+[{{ joinPath $AppData "Talon/user/community" | quote }}]
+	type = "git-repo"
+	url = "https://github.com/talonhub/community"
 {{- end }}
 
 # Extra - Pueue
