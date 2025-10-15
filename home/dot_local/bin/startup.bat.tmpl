@@ -1,5 +1,9 @@
 PUSHD "%~dp0"
 
+{{ joinPath .chezmoi.homeDir ".local/bin/pueue.exe" | quote }} shutdown
+
+DEL {{ joinPath .chezmoi.homeDir "AppData/Local/pueue/pueue.pid" | quote }}
+
 {{ joinPath .chezmoi.homeDir ".local/bin/pueued.exe" | quote }} -d
 
 {{ joinPath .chezmoi.homeDir ".local/bin/pueue.exe" | quote }} add --immediate rclone.exe serve webdav {{ joinPath .chezmoi.homeDir "Syncthing" | quote }}
