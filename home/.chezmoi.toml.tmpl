@@ -1,0 +1,7 @@
+# .chezmoi.toml
+{{- $email := promptStringOnce . "email" "Email address" }}
+encryption = "age"
+[age]
+    identity = {{ joinPath .chezmoi.homeDir ".config/chezmoi/age.key" | quote }}
+[data]
+    email = {{ $email | quote }}
