@@ -5,7 +5,7 @@ Managed by [Chezmoi](https://www.chezmoi.io/).
 1. Use the [One line binary install](https://www.chezmoi.io/install/#one-line-binary-install) with the `-b .local/bin -- init peter-schwier` arguments to initialize with this repo and install into `~/.local/bin`.
 
     * PowerShell: `iex "&{$(irm 'https://get.chezmoi.io/ps1')} -b .local/bin -- init peter-schwier"`
-    * bash curl: `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b .local/bin init --apply $GITHUB_USERNAME`
+    * bash curl: `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b .local/bin init peter-schwier`
 
 2. Install the default `~/.config/chezmoi/age.key` using the command `chezmoi age decrypt --passphrase ~/.local/share/chezmoi/home/dot_config/chezmoi/.age.key --output ~/.config/chezmoi/age.key`.
 
@@ -14,6 +14,12 @@ Managed by [Chezmoi](https://www.chezmoi.io/).
 # TODO
 
 1. Fix `home\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\startup.bat - Shortcut.lnk` to work on different windows machines.
+
+This works for calculating forward 5 minutes:
+
+```sh
+date -D "%s" -d $(($(date +%s) + (5 * 60) )) -Iseconds
+```
 
 # Documentation
 
@@ -24,3 +30,13 @@ Managed by [Chezmoi](https://www.chezmoi.io/).
 5. `home/.chezmoiexternal.toml.tmpl` - As per https://www.chezmoi.io/reference/special-files/chezmoiexternal-format/, this is for pulling in external repositories or archives per machine.
 6. `home/.chezmoiscripts/**` - As per https://www.chezmoi.io/reference/special-directories/chezmoiscripts/, these are change scripts that run according to their [[attributes|https://www.chezmoi.io/reference/source-state-attributes/]].
 7. `home/**[.tmpl]` - All other files are loaded, based on their [[attributes|https://www.chezmoi.io/reference/source-state-attributes/]] into the user's home folder.
+
+## XDG
+
+https://specifications.freedesktop.org/basedir/latest/
+
+The `~/.local/bin/` should be in the local path.  This is where I install `chezmoi` to, and the other single file command line applications.
+
+* `$XDG_DATA_HOME` should be `~/.local/share/`, this is where chezmoi checks out the git repo to. Like that, it is a persistant data folder, for interaction, but not configuration.
+* `$XDG_CONFIG_HOME` should be `~/.config/`, this is where chezmoi puts its configuration file. Like that, it is a persistant config storage location, things in here should change when the user chooses to, not automatically.
+* `$XDG_STATE_HOME` should be `~/.local/state/`, this is where local state information should remain. I will be using this for keeping track of when I start/stop scripts.
