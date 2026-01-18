@@ -2,14 +2,18 @@
 
 Managed by [Chezmoi](https://www.chezmoi.io/).
 
-1. Use the [One line binary install](https://www.chezmoi.io/install/#one-line-binary-install) with the `-b .local/bin -- init peter-schwier` arguments to initialize with this repo and install into `~/.local/bin`.
+1. Install applications using platform specific package managers.
 
-    * PowerShell: `iex "&{$(irm 'https://get.chezmoi.io/ps1')} -b .local/bin -- init peter-schwier"`
-    * bash curl: `sh -c "$(curl -fsLS get.chezmoi.io)" -- -b .local/bin init peter-schwier`
+* On Windows, use [[Scoop|https://scoop.sh/]].
+    * Install Scoop using the command `powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -Command "& { Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression }"`, then close that command prompt and open a new one.
+    * Install Chezmoi using the command `scoop install chezmoi git pueue`.
 
-2. Install the default `~/.config/chezmoi/age.key` using the command `chezmoi age decrypt --passphrase ~/.local/share/chezmoi/home/dot_config/chezmoi/.age.key --output ~/.config/chezmoi/age.key`.
 
-3. Then actually apply things using the command `chezmoi apply`. Do this after setting the `~/.config/chezmoi/age.key` so that encrypted files will decrypt correctly.
+2. Initialize chezmoi using `chezmoi init peter-schwier`.
+
+3. Install the default `~/.config/chezmoi/age.key` using the command `chezmoi age decrypt --passphrase ~/.local/share/chezmoi/home/dot_config/chezmoi/.age.key --output ~/.config/chezmoi/age.key`.
+
+4. Then actually apply things using the command `chezmoi apply`. Do this after setting the `~/.config/chezmoi/age.key` so that encrypted files will decrypt correctly.
 
 # TODO
 
