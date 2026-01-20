@@ -12,8 +12,8 @@
 # A non-interactive shell invoked with the name sh does not attempt to read any other startup files.
 # When invoked as sh, Bash enters POSIX mode after reading the startup files. 
 
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/bash/env.bash" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/bash/env.bash"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/bash/login.bash" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/bash/login.bash"
-[ $- == *i* ] && [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/bash/interactive.bash" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/bash/interactive.bash"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/sh/env.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/sh/env.sh"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/sh/login.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/sh/login.sh"
+[ $- == *i* ] && [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/sh/interactive.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/sh/interactive.sh"
 export ENV="$HOME/.shenv"
 

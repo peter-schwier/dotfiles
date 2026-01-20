@@ -3,3 +3,31 @@
 #
 
 {{ template "script_test.sh" "~/.shenv" }}
+
+# REF: https://www.gnu.org/software/bash/manual/bash.html#Invoked-with-name-sh
+# If Bash is invoked with the name sh, it tries to mimic the startup behavior of historical versions of sh as closely as possible, while conforming to the POSIX standard as well.
+# When invoked as an interactive login shell, or as a non-interactive shell with the --login option, it first attempts to read and execute commands from /etc/profile and ~/.profile, in that order. The --noprofile option inhibits this behavior.
+# When invoked as an interactive shell with the name sh, Bash looks for the variable ENV, expands its value if it is defined, and uses the expanded value as the name of a file to read and execute. Since a shell invoked as sh does not attempt to read and execute commands from any other startup files, the --rcfile option has no effect.
+# A non-interactive shell invoked with the name sh does not attempt to read any other startup files.
+# When invoked as sh, Bash enters POSIX mode after reading the startup files.
+
+# REF: https://www.gnu.org/software/bash/manual/bash.html#Invoked-in-posix-mode
+# When Bash is started in POSIX mode, as with the --posix command line option, it follows the POSIX standard for startup files. In this mode, interactive shells expand the ENV variable and read and execute commands from the file whose name is the expanded value. No other startup files are read.
+
+# REF: https://www.gnu.org/software/bash/manual/bash.html#index-POSIXLY_005fCORRECT
+# If this variable is in the environment when Bash starts, the shell enters POSIX mode (see Bash and POSIX) before reading the startup files, as if the --posix invocation option had been supplied. If it is set while the shell is running, Bash enables POSIX mode, as if the command
+# 	set -o posix
+# had been executed. When the shell enters POSIX mode, it sets this variable if it was not already set.
+
+# If `bash` is started with the --posix option (case 1), it will read only this
+# file even if the shell is a login shell. It is assumed that users doing that
+# want a bare POSIX shell, so we merely return in this case.
+# To source a specific startup file, use `ENV=/etc/profile sh --posix`.
+if [ "${POSIXLY_CORRECT+x}" ]; then
+  return 1
+fi
+
+
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/sh/env.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/sh/env.sh"
+[ $- == *i* ]] && [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/sh/interactive.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/sh/interactive.sh"
+
