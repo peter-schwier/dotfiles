@@ -1,0 +1,10 @@
+#
+# ~/.bash_logout
+#
+
+{{ template "script_test.sh" "~/.bash_logout" }}
+
+# REF: https://www.gnu.org/software/bash/manual/bash.html#Invoked-as-an-interactive-login-shell_002c-or-with-_002d_002dlogin
+# When an interactive login shell exits, or a non-interactive login shell executes the exit builtin command, Bash reads and executes commands from the file ~/.bash_logout, if it exists. 
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/bash/logout.bash" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/bash/logout.bash"
+

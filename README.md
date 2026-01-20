@@ -28,6 +28,8 @@ This works for calculating forward 5 minutes:
 date -D "%s" -d $(($(date +%s) + (5 * 60) )) -Iseconds
 ```
 
+https://github.com/sgleizes/xsh
+
 # Documentation
 
 * `.chezmoiroot` - As per https://www.chezmoi.io/reference/special-files/chezmoiroot/, treat the `home` folder as the root folder for parsing `chezmoi` file.  This allows me to re-use the dotfiles repo for other things later, if need be.
