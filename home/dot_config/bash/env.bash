@@ -1,0 +1,1 @@
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/sh/env.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/sh/env.sh"

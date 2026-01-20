@@ -28,7 +28,10 @@ This works for calculating forward 5 minutes:
 date -D "%s" -d $(($(date +%s) + (5 * 60) )) -Iseconds
 ```
 
-https://github.com/sgleizes/xsh
+* https://github.com/bkuhlmann/dotfiles/tree/main/lib/templates/.config
+* https://github.com/joshsurber/.files/tree/master/bash/.bash
+* https://github.com/daler/dotfiles/tree/master
+
 
 # Documentation
 

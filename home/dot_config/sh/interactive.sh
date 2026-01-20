@@ -1,0 +1,6 @@
+
+
+# REF: https://www.reddit.com/r/AlpineLinux/comments/x8dxcn/ash_customization/
+# REF: https://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
+export PS0='\[\033[35m\][\D{%Y-%m-%dT%H:%M:%S%z}] \[\033[32m\]\u@\h:\[\033[33m\]\w \[\033[0m\].....\n'
+export PS1='\n\[\033[35m\][\D{%Y-%m-%dT%H:%M:%S%z}] \[\033[32m\]\u@\h:\[\033[33m\]\w\[\033[0m\] \\$?=$? \[\033[36m\]`__git_ps1`\[\033[0m\]\n#\# \$ '
