@@ -1,1 +1,3 @@
+#! /bin/bash
+
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/sh/login.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/sh/login.sh"
