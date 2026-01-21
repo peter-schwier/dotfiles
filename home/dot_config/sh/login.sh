@@ -7,3 +7,15 @@ fi
 if [ -d "$HOME/scoop/shims" ] ; then
     PATH="$HOME/scoop/shims:$PATH"
 fi
+
+# The following service startups don't assume the application is stopped, because Git for Windows bash also treats a window open as a login.
+
+pueue status 2>&1 >/dev/null || (pueued --daemonize && sleep 1)
+
+pueue group --json | grep syncthing >/dev/null || pueue group add syncthing
+pueue status --group syncthing 'status=running command%=syncthing' --json | grep id >/dev/null || pueue add --group syncthing --immediate syncthing
+
+pueue group --json | grep rclone >/dev/null || pueue group add rclone
+pueue status --group rclone 'status=running command%=rclone' --json | grep id >/dev/null || pueue add --group rclone --immediate rclone serve webdav Syncthing
+
+pueue status
