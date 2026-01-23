@@ -16,6 +16,6 @@ pueue group --json | grep syncthing >/dev/null || pueue group add syncthing
 pueue status --group syncthing 'status=running command%=syncthing' --json | grep id >/dev/null || pueue add --group syncthing --immediate syncthing
 
 pueue group --json | grep rclone >/dev/null || pueue group add rclone
-pueue status --group rclone 'status=running command%=rclone' --json | grep id >/dev/null || pueue add --group rclone --immediate rclone serve webdav Syncthing
+pueue status --group rclone 'status=running command%=rclone' --json | grep id >/dev/null || pueue add --group rclone --immediate rclone serve webdav {{ joinPath .chezmoi.homeDir "Syncthing" | quote }}
 
 pueue status
