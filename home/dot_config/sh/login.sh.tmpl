@@ -1,21 +1,27 @@
 #! /bin/sh
 
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+addToPath() {
+    if [ -d "$1" ] ; then
+        case :$PATH: in 
+            *:$1:* ) printf 'PATH contains %s\n' "$1" ;;
+            * ) PATH="$1:$PATH" ;;
+        esac
+    fi
+}
 
-if [ -d "$HOME/scoop/shims" ] ; then
-    PATH="$HOME/scoop/shims:$PATH"
-fi
+addToPath "$HOME/.local/bin"
+addToPath "$HOME/scoop/shims"
 
 # The following service startups don't assume the application is stopped, because Git for Windows bash also treats a window open as a login.
 
 pueue status 2>&1 >/dev/null || (pueued --daemonize && sleep 1)
 
 pueue group --json | grep syncthing >/dev/null || pueue group add syncthing
-pueue status --group syncthing 'status=running command%=syncthing' --json | grep id >/dev/null || pueue add --group syncthing --immediate syncthing
+pueue status --group syncthing 'status=running command%=syncthing' --json | grep id >/dev/null || pueue add --group syncthing --working-directory {{ .chezmoi.homeDir | quote }} --immediate syncthing
 
 pueue group --json | grep rclone >/dev/null || pueue group add rclone
-pueue status --group rclone 'status=running command%=rclone' --json | grep id >/dev/null || pueue add --group rclone --immediate rclone serve webdav {{ joinPath .chezmoi.homeDir "Syncthing" | quote }}
+pueue status --group rclone 'status=running command%=rclone' --json | grep id >/dev/null || pueue add --group rclone --working-directory {{ .chezmoi.homeDir | quote }} --immediate rclone serve webdav {{ joinPath .chezmoi.homeDir "Syncthing" | quote }}
 
 pueue status
+
+keepassxc {{ joinPath .chezmoi.homeDir "Syncthing/Data.KeePass/Peter's Passwords.kdbx" | quote }} &
