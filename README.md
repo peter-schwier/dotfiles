@@ -25,6 +25,11 @@ These are the core technologies I plan to use for data storage and replication. 
     * Bazzite: [KeePassXC](https://keepassxc.org/) ☑
     * iPhone/iPad: [KeePassium](https://keepassium.com/) ☑ (Free edition only for enterprise device.)
     * Windows: [KeePassXC](https://keepassxc.org/) ☑ via [Scoop](https://scoop.sh/) ☐
+* [Posix Shell](https://en.wikipedia.org/wiki/Almquist_shell) 
+    * Android's [Termux](https://f-droid.org/en/packages/com.termux/) ☐: [Bash](https://www.gnu.org/software/bash/)
+    * Bazzite: [Bash](https://www.gnu.org/software/bash/)
+    * iPhone/iPad: [Dash](https://git.kernel.org/pub/scm/utils/dash/dash.git) via [a-Shell](https://github.com/holzschu/a-shell) ☐
+    * Windows: [Bash](https://www.gnu.org/software/bash/) via [Git for Windows](https://gitforwindows.org/) ☑ via [Scoop](https://scoop.sh/) ☐
 * [Syncthing](https://syncthing.net/) ☑ for file replication between my devices without having a dedicated cloud host.
     * Android's [Termux](https://f-droid.org/en/packages/com.termux/) ☐: [pkg install syncthing](https://github.com/termux/termux-packages/tree/master/packages/syncthing) ☑
     * Bazzite: TODO
@@ -35,11 +40,11 @@ These are the core technologies I plan to use for data storage and replication. 
     * Bazzite: TODO
     * iPhone/iPad: [Quine](https://apps.apple.com/us/app/quine/id1450128957) ☐
     * Windows: [RClone](https://rclone.org/commands/rclone_serve_webdav/) ☑ for WebDav hosting
-* [Posix Shell](https://en.wikipedia.org/wiki/Almquist_shell) 
-    * Android's [Termux](https://f-droid.org/en/packages/com.termux/) ☐: [Bash](https://www.gnu.org/software/bash/)
-    * Bazzite: [Bash](https://www.gnu.org/software/bash/)
-    * iPhone/iPad: [Dash](https://git.kernel.org/pub/scm/utils/dash/dash.git) via [a-Shell](https://github.com/holzschu/a-shell) ☐
-    * Windows: [Bash](https://www.gnu.org/software/bash/) via [Git for Windows](https://gitforwindows.org/) ☑ via [Scoop](https://scoop.sh/) ☐
+* [Vim](https://www.vim.org/) for a text editor
+    * Android's [Termux](https://f-droid.org/en/packages/com.termux/) ☐: TODO
+    * Bazzite: TODO
+    * iPhone/iPad: Vim via [a-Shell](https://github.com/holzschu/a-shell) ☐
+    * Windows: [Git for Windows](https://gitforwindows.org/) ☑ via [Scoop](https://scoop.sh/) ☐
 
 
 # Peter's dotfiles
