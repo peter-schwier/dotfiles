@@ -1,3 +1,47 @@
+# Peter's Digital Workspace
+
+I'm organizing the tools I use in my personal and work life to be consistant across platforms.  I want to remain compatable with my employer's "Software Advisory Register" (that says if the software has a license compatable with enterprise use, and doesn't include malware) so I won't have to worry about differing configurations on my personal vs professional devices.
+
+## Software Advisory Register
+
+I use several Unicode symbols to keep track of the approved, rejected, unreviewed status of these tools in my employer's "Software Advisory Register".
+
+* ☑ Approved
+* ☒ Rejected (Usually includes a reason listed.)
+* ☐ Unreviewed
+
+## Core Tools
+
+These are the core technologies I plan to use for data storage and replication.  Every device I use should be able to support all of these, even if some devices don't have it installed.
+
+* [Git](https://git-scm.com/) ☑ for source control of dotfiles and public file hosting. 
+    * Public Websites: [GitHub Pages](https://docs.github.com/en/pages) for hosting my public knowledge base and consider moving [My Website](https://www.schwier.us).
+    * Android's [Termux](https://f-droid.org/en/packages/com.termux/) ☐: [pkg install git](https://github.com/termux/termux-packages/tree/master/packages/git) ☑
+    * Bazzite: TODO
+    * iPhone/iPad: [Working Copy](https://workingcopyapp.com/)
+    * Windows: [Git for Windows](https://gitforwindows.org/) ☑ via [Scoop](https://scoop.sh/) ☐
+* [KeePass](https://keepass.info/) for password management that is private to my devices.
+    * Android: [KeePass2Android](https://github.com/PhilippC/keepass2android) ☐
+    * Bazzite: [KeePassXC](https://keepassxc.org/) ☑
+    * iPhone/iPad: [KeePassium](https://keepassium.com/) ☑ (Free edition only for enterprise device.)
+    * Windows: [KeePassXC](https://keepassxc.org/) ☑ via [Scoop](https://scoop.sh/) ☐
+* [Syncthing](https://syncthing.net/) ☑ for file replication between my devices without having a dedicated cloud host.
+    * Android's [Termux](https://f-droid.org/en/packages/com.termux/) ☐: [pkg install syncthing](https://github.com/termux/termux-packages/tree/master/packages/syncthing) ☑
+    * Bazzite: TODO
+    * iPhone/iPad: [Möbius Sync](https://www.mobiussync.com/) ☐
+    * Windows: [Syncthing](https://syncthing.net/) ☑ via [Scoop](https://scoop.sh/) ☐
+* [TiddlyWiki](https://tiddlywiki.com/) ☑ for knowledge store and its [Interwingularity](https://en.wikipedia.org/wiki/Intertwingularity).
+    * Android's [Termux](https://f-droid.org/en/packages/com.termux/) ☐: [pkg install rclone](https://github.com/termux/termux-packages/tree/master/packages/rclone) ☑ for WebDav hosting
+    * Bazzite: TODO
+    * iPhone/iPad: [Quine](https://apps.apple.com/us/app/quine/id1450128957) ☐
+    * Windows: [RClone](https://rclone.org/commands/rclone_serve_webdav/) ☑ for WebDav hosting
+* [Posix Shell](https://en.wikipedia.org/wiki/Almquist_shell) 
+    * Android's [Termux](https://f-droid.org/en/packages/com.termux/) ☐: [Bash](https://www.gnu.org/software/bash/)
+    * Bazzite: [Bash](https://www.gnu.org/software/bash/)
+    * iPhone/iPad: [Dash](https://git.kernel.org/pub/scm/utils/dash/dash.git) via [a-Shell](https://github.com/holzschu/a-shell) ☐
+    * Windows: [Bash](https://www.gnu.org/software/bash/) via [Git for Windows](https://gitforwindows.org/) ☑ via [Scoop](https://scoop.sh/) ☐
+
+
 # Peter's dotfiles
 
 Managed by [Chezmoi](https://www.chezmoi.io/).
@@ -52,3 +96,29 @@ The `~/.local/bin/` should be in the local path.  This is where I install `chezm
 * `$XDG_DATA_HOME` should be `~/.local/share/`, this is where chezmoi checks out the git repo to. Like that, it is a persistant data folder, for interaction, but not configuration.
 * `$XDG_CONFIG_HOME` should be `~/.config/`, this is where chezmoi puts its configuration file. Like that, it is a persistant config storage location, things in here should change when the user chooses to, not automatically.
 * `$XDG_STATE_HOME` should be `~/.local/state/`, this is where local state information should remain. I will be using this for keeping track of when I start/stop scripts.
+
+
+# Version 2.0
+
+I'm thinking about migrating away from chezmoi to a custom bash script based setup. Because [a-Shell](https://github.com/holzschu/a-shell) would not let me install Chemzoi, but does run dash.
+
+Turns out that I can use a here document to feed a generated script into the `sh` command. As an example:
+
+``` t.txt
+Hello, $(whoami) on this wonderful $(date) day.
+/bin/sh*
+```
+
+```sh t.sh
+#! /bin/sh
+
+sh <<END_OF_FILE
+cat <<EOF
+$(cat t.txt)
+EOF
+END_OF_FILE
+```
+
+I will need to come up with better heredoc strings, but this would let me create template files that just use standard posix shell script replacements.
+
+
