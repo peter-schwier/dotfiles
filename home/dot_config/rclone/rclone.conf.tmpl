@@ -1,0 +1,12 @@
+[gdrive]
+type = drive
+scope = drive
+service_account_file = ~/.config/rclone/peters-productivity-833a0f02ea96.json
+team_drive = 
+impersonate = peter@schwier.us
+
+[crypt]
+type = crypt
+remote = gdrive:Crypt
+password = {{ joinPath .chezmoi.sourceDir "dot_config/rclone/.crypt-password.age" | include | decrypt }}
+
