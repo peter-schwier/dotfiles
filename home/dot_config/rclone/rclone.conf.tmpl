@@ -10,3 +10,12 @@ type = crypt
 remote = gdrive:Crypt
 password = {{ joinPath .chezmoi.sourceDir "dot_config/rclone/.crypt-password.age" | include | decrypt }}
 
+[Local]
+type = combine
+upstreams = {{ list
+    " Data.Applications=" (joinPath .chezmoi.homeDir "Syncthing/Data.Applications")
+    " Data.KeePass=" (joinPath .chezmoi.homeDir "Syncthing/Data.KeePass")
+    " Data.Personal=" (joinPath .chezmoi.homeDir "Syncthing/Data.Personal")
+    | join "" | trim
+}}
+
