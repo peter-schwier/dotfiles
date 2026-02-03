@@ -3,3 +3,5 @@
 {{ template "script_test.sh" "~/.config/bash/interactive.bash" }}
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/sh/interactive.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/sh/interactive.sh"
+
+{{ completion "bash" }}
