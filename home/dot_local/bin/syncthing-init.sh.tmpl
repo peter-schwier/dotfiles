@@ -1,0 +1,26 @@
+#!/bin/sh
+
+syncthing cli config devices $(syncthing device-id) name set {{.deviceName | quote}}
+syncthing cli config defaults folder path set ~/Syncthing
+
+syncthing_add_device() {
+    local DEVICE_ID NAME
+    DEVICE_ID=$1; shift
+    NAME="$1"; shift
+    syncthing cli config devices list | grep "${DEVICE_ID}" >/dev/null || syncthing cli config devices add --device-id=${DEVICE_ID} --name="${NAME}" "$@"
+    syncthing cli config devices "${DEVICE_ID}" name set "${NAME}"
+}
+
+# Real devices
+syncthing_add_device 5YB72MX-7SL3DMV-EBWJP3Y-YQIQPOH-OVXMNUY-P43ZGV7-5ECNX3W-HDZOSQU "Peter's Work Windows Laptop"
+syncthing_add_device G2XZEO6-FZ3FSHS-C37FOUU-OZ6IS5X-B772RFK-2XHS3MY-M27T25D-B6IGDAF "Peter's Work iPhone"
+# TODO: Personal Pixel 8
+# TODO: Personal Samsung S22
+# TODO: Personal iPad
+# TODO: Personal Windows Framework Laptop
+# TODO: Personal Bazzite Framework Laptop
+
+# Legacy devices? Check if they really exist.
+syncthing_add_device GT5X5FR-UBVSPKA-W73KCMG-62Z5ZI2-54KF6TZ-6XEFSGM-5CPMTH3-G6QNBAC "Peter's Personal Laptop"
+syncthing_add_device IHH3RCB-FQ3VVXO-PXHRSB5-7VO6PFW-RTNGVNO-IXKRELT-OKLHBKX-VIF5NAF "Peter's Windows Framework Laptop"
+syncthing_add_device VEKOZY3-CX2EHMK-DXBUP4O-SZUXYJW-IAE32RX-YOMQEYC-7NZ6KDS-CU227QZ "Peter's Personal Phone"

@@ -1,8 +1,10 @@
 # .chezmoi.toml
 {{- $email := promptStringOnce . "email" "Email address" }}
+{{- $deviceName := promptStringOnce . "deviceName" "Verbose device name (ex. Peter's Work iPhone)" }}
 encryption = "age"
 [age]
     identity = {{ joinPath .chezmoi.homeDir ".config/chezmoi/age.key" | quote }}
     recipient = "age1twkpxatkh7yw8dg6qxrskj8znqn8exejutpr5phrqkltyeaqe9eq09hhlc"
 [data]
     email = {{ $email | quote }}
+    deviceName = {{ $deviceName | quote }}

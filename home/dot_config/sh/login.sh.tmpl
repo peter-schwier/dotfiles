@@ -19,7 +19,7 @@ addToPath "$HOME/scoop/shims"
 pueue status 2>&1 >/dev/null || (pueued --daemonize && sleep 1)
 
 pueue group --json | grep syncthing >/dev/null || pueue group add syncthing
-pueue status --group syncthing 'status=running command%=syncthing' --json | grep id >/dev/null || pueue add --group syncthing --working-directory {{ .chezmoi.homeDir | quote }} --immediate syncthing
+pueue status --group syncthing 'status=running command%=syncthing' --json | grep id >/dev/null || { pueue add --group syncthing --working-directory {{ .chezmoi.homeDir | quote }} --immediate syncthing; pueue add --working-directory {{ .chezmoi.homeDir | quote }} --immediate sh {{ joinPath .chezmoi.homeDir ".local/bin/syncthing-init.sh" | quote }}; }
 
 pueue group --json | grep rclone >/dev/null || pueue group add rclone
 pueue status --group rclone 'status=running command%=rclone' --json | grep id >/dev/null || pueue add --group rclone --working-directory {{ .chezmoi.homeDir | quote }} --immediate rclone serve webdav {{ joinPath .chezmoi.homeDir "Syncthing" | quote }}
