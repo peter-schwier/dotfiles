@@ -28,4 +28,4 @@ pueue status
 
 keepassxc {{ joinPath .chezmoi.homeDir "Syncthing/Data.KeePass/Peter's Passwords.kdbx" | quote }} &
 
-cd ~
+chezmoi git pull && chezmoi apply
