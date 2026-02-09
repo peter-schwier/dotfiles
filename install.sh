@@ -16,4 +16,16 @@ if type termux-change-repo >/dev/null ; then
 	pkg install chezmoi
 fi
 
+if type scoop >/dev/null ; then
+	if ! scoop bucket list | grep extras >/dev/null ; then
+		scoop bucket add extras
+	fi
+	scoop update
+	for APP in chezmoi git keepassxc pueue pwsh rclone syncthing ; do
+		if ! scoop list | grep "$APP" >/dev/null ; then
+			scoop install "$APP"
+		fi
+	done
+fi
+
 chezmoi age decrypt ~/.local/share/chezmoi/home/dot_config/chezmoi/.age.key --output ~/.config/chezmoi/age.key --passphrase

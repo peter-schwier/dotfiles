@@ -70,7 +70,7 @@ Managed by [Chezmoi](https://www.chezmoi.io/).
 
 * Fix `home\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\startup.bat - Shortcut.lnk` to work on different windows machines.
 
-* Swap out from Syncthing, to RClone based bisync in a star configuration using my Google Drive.
+* Migrate to custom shell script expansion based dotfiles. So it will work correctly on a-Shell.
 
 This works for calculating forward 5 minutes:
 
