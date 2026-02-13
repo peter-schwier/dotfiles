@@ -2,8 +2,6 @@
 # ~/.bash_profile
 #
 
-{{ template "script_test.sh" "~/.bash_profile" }}
-
 # REF: https://www.gnu.org/software/bash/manual/bash.html#Invoked-as-an-interactive-login-shell_002c-or-with-_002d_002dlogin
 # When Bash is invoked as an interactive login shell, or as a non-interactive shell with the --login option, it first reads and executes commands from the file /etc/profile, if that file exists. After reading that file, it looks for ~/.bash_profile, ~/.bash_login, and ~/.profile, in that order, and reads and executes commands from the first one that exists and is readable. The --noprofile option inhibits this behavior. 
 [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/bash/env.bash" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/bash/env.bash"
