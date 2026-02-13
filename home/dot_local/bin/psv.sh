@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# psv: A simple service management tool built on [pueue](https://github.com/Nukesor/pueue)
+# psv: Portable services. A simple sevice manager written in posixly correct shell script.
 #
 # This file defines the single function psv and tries to be posixly correct.
 #
@@ -28,14 +28,60 @@
 PSV_VERSION='0.0.1'
 
 PSV_CONFIG_DIR="${PSV_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/psv}"
+PSV_STATE_DIR="${PSV_STATE_DIR:-${XDG_STATE_HOME:-$HOME/.local/state}/psv}"
+
+_psv_help() { cat <<EOF
+
+Usage psv.sh [options...] <command> [args...]
+Options:
+  --version <${PSV_VERSION}>
+    Set what version of the command set you are working with. This will default to the highest version supported by this instance of the code.
+  --config <PSV_CONFIG_DIR>
+    Set the folder to read the configurations.
+  --state <PSV_STATE_DIR>
+    Set the folder to store the pid and other local state information.
+Commands in version 0.0.1:
+  adhoc <command line>
+    https://github.com/Nukesor/pueue?tab=readme-ov-file
+
+Commands in a future version:
+  status
+    https://smarden.org/runit/sv.8
+  up <service>
+    https://smarden.org/runit/sv.8
+    https://github.com/lime-scripts/supervisor/blob/main/supervisor.sh
+    https://github.com/kwatch/reraise
+  down <service>
+    https://smarden.org/runit/sv.8
+    https://github.com/lime-scripts/supervisor/blob/main/supervisor.sh
+    https://github.com/kwatch/reraise
+  require <service>
+    https://smarden.org/runit/sv.8
+    Same as up, but wait for up to 7 seconds for the service to finish starting.
+  envdir <dir>
+    https://www.skarnet.org/software/s6/s6-envdir.html
+  supervise <service>
+    https://www.skarnet.org/software/s6/s6-supervise.html
+    https://smarden.org/runit/runsv.8
+    Use ${PSV_CONFIG_DIR}/<service>/ for the service definition.
+    Use ${PSV_STATE_DIR}/<service>/ for the pid file, control pipe, and state information.
+  supervisor
+    https://www.skarnet.org/software/s6/s6-svscan.html
+    https://smarden.org/runit/runsvdir.8
+    Use ${PSV_CONFIG_DIR}/<...> for the service definitions.
+    Use ${PSV_STATE_DIR}/psv/ for the pid file, control pipe, and state information.
+  logger
+    https://smarden.org/runit/svlogd.8
+Design:
+  ${PSV_CONFIG_DIR}/<service>/run script.
+  ${PSV_CONFIG_DIR}/<service>/check script.
+  ${PSV_CONFIG_DIR}/<service>/finish script.
+  ${PSV_CONFIG_DIR}/<service>/log/run script.
 
 
 
-throw() {
-  echo "$*" >&2
-  exit 1
+EOF
 }
-
 
 usage() { cat <<EOF_USAGE
 
