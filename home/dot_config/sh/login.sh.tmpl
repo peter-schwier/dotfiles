@@ -1,7 +1,5 @@
 #! /bin/sh
 
-{{ template "script_test.sh" "~/.config/sh/login.sh" }}
-
 addToPath() {
     if [ -d "$1" ] ; then
         case :$PATH: in 

@@ -57,7 +57,7 @@ Managed by [Chezmoi](https://www.chezmoi.io/).
         * Install Scoop using the command `powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -Command "& { Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression }"`, then close that command prompt and open a new one.
         * Add the extras bucket using the command `scoop bucket add extras`.
         * Install appliactions using the command `scoop install main/chezmoi main/git main/pueue extras/keepassxc main/rclone main/pwsh main/syncthing`.
-    * On Termux, 'pkg install chezmoi which'
+    * On Termux, 'pkg install chezmoi'
 
 
 * Initialize chezmoi using `chezmoi init peter-schwier`.

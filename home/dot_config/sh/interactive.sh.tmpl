@@ -1,7 +1,5 @@
 #! /bin/sh
 
-{{ template "script_test.sh" "~/.config/sh/interactive.sh" }}
-
 # REF: https://www.reddit.com/r/AlpineLinux/comments/x8dxcn/ash_customization/
 # REF: https://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
 export PS0='\[\033[35m\][\D{%Y-%m-%dT%H:%M:%S%z}]\[\033[0m\] /$SHLVL \[\033[32m\]\u@\h:\[\033[33m\]\w \[\033[0m\].....\n'
