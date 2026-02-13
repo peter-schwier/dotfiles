@@ -40,9 +40,17 @@ Options:
     Set the folder to read the configurations.
   --state <PSV_STATE_DIR>
     Set the folder to store the pid and other local state information.
+  --format (nestedtext|properties)
+    Set the output to be either NestedText or a Java Properties file syntax. NestedText is more human readable, Java Properties is easier to parse in shell scripts.
 Commands in version 0.0.1:
-  adhoc <command line>
+  queue add [--] <command line>
     https://github.com/Nukesor/pueue?tab=readme-ov-file
+    Enqueue a task to run in the background. When the previous task in the queue exits, start the next task.
+  queue list
+    https://github.com/Nukesor/pueue?tab=readme-ov-file
+    List the enqueued tasks. Finished tasks will have their exit status.
+  queue remove <id>
+    Remove a task from the queue. A task that is currently running, will be stopped before being removed.
 
 Commands in a future version:
   status
@@ -73,11 +81,13 @@ Commands in a future version:
   logger
     https://smarden.org/runit/svlogd.8
 Design:
-  ${PSV_CONFIG_DIR}/<service>/run script.
-  ${PSV_CONFIG_DIR}/<service>/check script.
-  ${PSV_CONFIG_DIR}/<service>/finish script.
-  ${PSV_CONFIG_DIR}/<service>/log/run script.
+  Service names starting with a symbol are internal to psv.sh and defined in ${PSV_STATE_DIR}/<id>.
+  Service names starting with a number are enqueued commands, defined in ${PSV_STATE_DIR}/<id>, and may be cleaned up by psv.sh.
+  Service names starting with a letter are user defined services and defined in ${PSV_CONFIG_DIR}/<service>.
 
+  A service folder must have a run script, and may have check and finish scripts.  It may also have a log subdirectory with a run script.
+
+  All command output will be formatted as Minimal NestedText (https://nestedtext.org/en/latest/minimal-nestedtext.html).
 
 
 EOF
